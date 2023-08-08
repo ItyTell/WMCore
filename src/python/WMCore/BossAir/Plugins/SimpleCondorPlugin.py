@@ -646,7 +646,7 @@ class SimpleCondorPlugin(BasePlugin):
         """
 
         sub = htcondor.Submit("""
-            universe = vanilla
+            universe = Local
             should_transfer_files = YES
             when_to_transfer_output = ON_EXIT
             notification = NEVER
