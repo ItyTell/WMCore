@@ -121,7 +121,7 @@ class JobFactory(WMObject):
         list([x.startGroup(self.currentGroup) for x in self.generators])
         return
 
-    def newJob(self, name=None, files=None, failedJob=False, failedReason=None):
+    def newJob(self, name=None, files=None, failedJob=False, failedReason=None, universe='vanilla'):
         """
         Instantiate a new Job onject, apply all the generators to it
         """
@@ -133,6 +133,8 @@ class JobFactory(WMObject):
         self.currentJob["jobType"] = self.subscription["type"]
         self.currentJob["taskType"] = self.subscription.workflowType()
         self.currentJob["owner"] = self.subscription.owner()
+
+        self.currentJob["universe"] = universe
 
         # All production jobs must be run 1
         if self.subscription["type"] == "Production":

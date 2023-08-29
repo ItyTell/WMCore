@@ -631,6 +631,8 @@ class SimpleCondorPlugin(BasePlugin):
             else:
                 ad['My.REQUIRED_ARCH'] = classad.quote(str(requiredArchs))
                 ad['Requirements'] = 'stringListMember(TARGET.Arch, REQUIRED_ARCH)'
+            
+            ad['universe'] = job.get('universe', 'vanilla')
 
             jobParameters.append(ad)    
              
@@ -645,8 +647,12 @@ class SimpleCondorPlugin(BasePlugin):
 
         """
 
+        jobParameters = self.getJobParameters(jobList)
+
+        universe = jobParameters[0]['universe']
+
         sub = htcondor.Submit("""
-            universe = Local
+            universe = {}
             should_transfer_files = YES
             when_to_transfer_output = ON_EXIT
             notification = NEVER
@@ -659,7 +665,7 @@ class SimpleCondorPlugin(BasePlugin):
             +JobLeaseDuration = (isUndefined(MachineAttrMaxHibernateTime0) ? 1200 : MachineAttrMaxHibernateTime0)
             +PeriodicRemove = ( JobStatus =?= 5 ) && ( time() - EnteredCurrentStatus > 10 * 60 )
             +PeriodicRemoveReason = PeriodicRemove ? "Job automatically removed for being in Held status" : ""
-            """)
+            """.format(universe))
         sub['executable'] = self.scriptFile
 
         # Required for global pool accounting
@@ -673,6 +679,5 @@ class SimpleCondorPlugin(BasePlugin):
         sub['My.CMS_WMTool'] = classad.quote("WMAgent")
         sub['My.CMS_SubmissionTool'] = classad.quote("WMAgent")
 
-        jobParameters = self.getJobParameters(jobList)
 
         return sub, jobParameters
