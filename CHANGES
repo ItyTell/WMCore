@@ -1,3 +1,23 @@
+2.2.4rc2 to 2.2.4rc3:
+  - Provide timestamps metrics about WM job (Valentin Kuznetsov) #11656
+  - Provide in the FWJR the CPU and wallclock time for CMSSW subprocesses (Valentin Kuznetsov) #11665
+  - Add WMCMSSWSubprocess and WMTiming metrics to WMArchive document (Valentin Kuznetsov) #11692
+
+
+2.2.4rc1 to 2.2.4rc2:
+  - Update requirements for HTCondor 10.2.3 (Alan Malta Rodrigues) #11691
+
+
+2.2.2 to 2.2.4rc1:
+  - Fix use of input function in unregister-wmstats script (Alan Malta Rodrigues) #11688
+  - Adopt wmcore_pileup Rucio account in workqueue (Alan Malta Rodrigues) #11670
+  - Parse /proc/<pid>/smaps_rollup if present && Reduce string concatenation operations (Todor Ivanov) #11676
+  - Change default rucio pileup account (khurtado) #11673
+  - Update McM client (Geovanny Gonzalez-Rodriguez) #11672
+  - Committing changes for removing references to py2 portability (anpicci) #11618
+  - WMAgent deploy script: use latest stable release 2.2.3.1 (Alan Malta Rodrigues) #11662
+
+
 2.2.2rc12 to 2.2.2:
   - Fix buildrelease for when there are no changes between releases (Alan Malta Rodrigues) #11650
 
